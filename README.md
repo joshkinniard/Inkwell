@@ -101,6 +101,26 @@ INKWELL_INSTALL=~/Applications ./build.sh
 
 The app is signed ad-hoc, not with a paid Apple Developer certificate, so the first launch will get you a Gatekeeper warning. Right-click the app and choose **Open** to get past it.
 
+**Tabs.** `⌘N` opens a new document as a tab in the same window, the way a terminal does — each tab is its own document with its own mode, not a view of the same text. Drag a tab out to split it into a separate window. Right-click a tab to rename its file, or use **File ▸ Rename…**. The Window menu carries the standard macOS tab commands (Show Tab Bar, Show All Tabs, Merge All Windows).
+
+**Menus and shortcuts:**
+
+| | |
+|---|---|
+| `⌘N` | New document — asks Ink or Free-write, opens as a tab |
+| `⌘O` | Open |
+| `⌘S` / `⇧⌘S` | Save / Save As… |
+| `⌘P` | Print |
+| `⌥⌘C` | **Copy Clean Prose** — the whole document, tags stripped |
+| `⌘C` | ordinary copy, of the selection as you see it |
+| `⌘T` | Font |
+| `⌃⌘F` | Full screen |
+| `⌘?` | **Inkwell Help** — the mechanic and the keys, inside the app |
+| File ▸ | Rename…, Export… |
+| Format ▸ | Text / Background / Tag Color, and Appearances |
+
+Two of those are easy to walk past. **`⌥⌘C` is the one you want when moving finished prose somewhere else** — plain `⌘C` copies exactly what's on screen, hashes and all. And **Format ▸ Appearances** saves a font-and-color combination by name so you can keep several and switch between them; **Save as Default Appearance** makes the current one apply to new documents.
+
 ---
 
 ## Where your writing goes
@@ -118,6 +138,10 @@ export INKWELL_ALLOWED_ROOTS="~/Documents/Notes:~/Desktop"
 ```
 
 Saved files are plain Markdown. Sentences run together separated by two spaces; paragraphs are separated by a blank line and indented. Tag-only sentences and paragraphs, which carry no real words, are dropped from the exported prose.
+
+**Auto-save and recovery use that same folder.** Nothing is written anywhere else on your disk — no `~/Library` state, no hidden application-support directory. A named document is re-saved in place every 15 seconds. An unnamed draft goes to a hidden recovery file in the writing folder instead, and the next launch offers to restore it; the Mac app keeps one per tab so open documents never overwrite each other's rescue copy. Give a draft a real name and its recovery file is retired.
+
+The practical consequence: **point `INKWELL_DIR` at a synced folder and your drafts sync; point it at a local one and they never leave the machine.** That's the whole of it — there's no setting anywhere else to get wrong.
 
 ---
 
