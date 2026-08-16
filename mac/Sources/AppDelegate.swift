@@ -317,13 +317,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         // Help menu
         let helpItem = NSMenuItem(); mainMenu.addItem(helpItem)
         let helpMenu = NSMenu(title: "Help"); helpItem.submenu = helpMenu
-        helpMenu.addItem(withTitle: "Inkwell Help", action: #selector(showHelp(_:)), keyEquivalent: "?")
+        // The selector must NOT be showHelp: — that is AppKit's own Apple Help action,
+        // implemented by NSApplication, which the responder chain reaches before this
+        // delegate. With no help book registered it answers "Help isn't available for
+        // Inkwell" and our help is never shown. Setting the target keeps it ours.
+        let helpEntry = helpMenu.addItem(withTitle: "Inkwell Help", action: #selector(showInkwellHelp(_:)), keyEquivalent: "?")
+        helpEntry.target = self
         NSApp.helpMenu = helpMenu
 
         NSApp.mainMenu = mainMenu
     }
 
-    @objc private func showHelp(_ sender: Any?) {
+    @objc private func showInkwellHelp(_ sender: Any?) {
         let alert = NSAlert()
         alert.messageText = "Inkwell"
         alert.informativeText = """
