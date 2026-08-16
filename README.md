@@ -1,8 +1,8 @@
 # Inkwell
 
-**A forward-only writing tool. Words go down like paint on canvas — once they're committed, they're ink.**
+**A writing app in two modes. In Ink mode, each sentence becomes permanent the moment you finish it. In Free-write mode, it doesn't.**
 
-Inkwell separates drafting from editing, so the act of writing isn't strangled by the urge to correct. You type inside a small live bracket where you can edit freely. When you finish a sentence, you *commit* it on purpose, and it freezes into the page. The cursor can't reach back.
+Ink mode is the reason Inkwell exists. Words go down like paint on canvas. It separates drafting from editing, so the act of writing isn't strangled by the urge to correct. You type inside a small live bracket where you can edit freely. When you finish a sentence, you *commit* it on purpose, and it freezes into the page. The cursor can't reach back.
 
 ```
     The morning came in grey and stayed that way.  Nobody minded much.  [she was still asleep when]
@@ -11,7 +11,7 @@ Inkwell separates drafting from editing, so the act of writing isn't strangled b
 
 This is deliberately **not** the blunt "we disabled your backspace" approach, which traps you with a typo forever. You get full freedom inside the bracket. Irreversibility only happens at a line you cross on purpose.
 
-**And when you don't want that, don't use it.** The Mac app gives every document one of two modes, chosen when you create it and fixed for that document:
+**And when you don't want that discipline, you don't take it.** The Mac app gives every document one of two modes, chosen when you create it and fixed for that document:
 
 - **Ink** — forward-only, as described above.
 - **Free-write** — plain typing, no brackets, edit anywhere.
