@@ -53,6 +53,11 @@ They do two jobs at once: a marker to yourself in the draft, and a filing instru
 
 Re-saving the same document replaces its old entries rather than piling up duplicates. Press **Up** while inside a tag to pick from tags you've used before.
 
+Two things worth knowing, since both are silent:
+
+- **The tag name becomes the filename.** Letters, digits, spaces, hyphens and underscores survive as typed; anything else becomes a hyphen, so `#draft/two#` files as `draft-two.md`. Case is ignored, so `#Weather#` and `#weather#` are the same tag rather than two files. A tag with no usable characters at all files nothing.
+- **A tag at the very start of a sentence files nothing**, because its scope is "the text before it in this sentence" and there isn't any. Put it at the end of the sentence, or alone, to capture what you just wrote.
+
 ---
 
 ## Two versions

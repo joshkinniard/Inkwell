@@ -347,7 +347,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
         Tags: wrap text in #hashes#. Tags show while you write but are stripped \
         from saved prose and the clipboard; each tag also gets its own file in \
-        the Tags folder on save.
+        the Tags folder on save. The tag name becomes that filename, so anything \
+        unusual in it (a slash, say) is replaced with a hyphen. A tag placed at \
+        the very start of a sentence has no text before it to file, so it files \
+        nothing.
 
         Files live in ~/Documents/Inkwell (set INKWELL_DIR to move that) and \
         are fully shared with the Terminal version of Inkwell.
