@@ -1,0 +1,21 @@
+# macOS junk
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+.iCloud
+*.icloud
+
+# Build output — the compiled app is rebuilt from source, never committed
+mac/build/
+*.o
+
+# Python
+__pycache__/
+*.pyc
+
+# Anything Inkwell writes while you're using it
+.inkwell-recovery.md
+.inkwell-recovery/
+Tags/
+*.md.bak
