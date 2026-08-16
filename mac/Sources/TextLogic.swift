@@ -108,11 +108,33 @@ enum TextLogic {
                     } else {                                    // 3: tag-only sentence
                         scope = clean(earlier)
                     }
+                    // A tag at the START of a sentence has nothing before it, so its
+                    // scope is empty. Filing a record with no text in it is noise.
+                    if !hasWords(scope) { continue }
                     records.append((name.lowercased(), scope))
                 }
             }
         }
         return records
+    }
+
+    /// A tag name reduced to a safe file basename (no extension).
+    ///
+    /// Tag text is whatever the writer typed between hashes, so it can contain
+    /// "/" or ".." and must never be used as a path as-is. Returns "" when
+    /// nothing usable survives, meaning "don't write a file for this".
+    static func tagFilename(_ name: String) -> String {
+        var out = ""
+        for ch in name.trimmingCharacters(in: .whitespaces).lowercased() {
+            if ch.isLetter || ch.isNumber || ch == " " || ch == "-" || ch == "_" {
+                out.append(ch)
+            } else {
+                out.append("-")
+            }
+        }
+        out = out.trimmingCharacters(in: .whitespaces)
+        while out.contains("--") { out = out.replacingOccurrences(of: "--", with: "-") }
+        return out.trimmingCharacters(in: CharacterSet(charactersIn: "-. "))
     }
 
     /// The clean, printable document: tags stripped, tag-only bits removed.

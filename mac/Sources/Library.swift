@@ -76,10 +76,21 @@ enum Library {
         guard !recs.isEmpty else { return }
         try? FileManager.default.createDirectory(atPath: tagsDir, withIntermediateDirectories: true)
         let stamp = stampNow()
-        var byName: [String: [String]] = [:]
-        for (name, scope) in recs { byName[name, default: []].append(scope) }
-        for (name, scopes) in byName {
-            let path = (tagsDir as NSString).appendingPathComponent(name + ".md")
+        var byFile: [String: (title: String, scopes: [String])] = [:]
+        for (name, scope) in recs {
+            let fname = TextLogic.tagFilename(name)
+            if fname.isEmpty { continue }
+            var entry = byFile[fname] ?? (title: name, scopes: [])
+            entry.scopes.append(scope)
+            byFile[fname] = entry
+        }
+        for (fname, entry) in byFile {
+            let path = (tagsDir as NSString).appendingPathComponent(fname + ".md")
+            // Belt and braces: the sanitizer above already removes path parts,
+            // but tag files get the same fence the prose save has.
+            guard withinAllowed(path) else { continue }
+            let name = entry.title
+            let scopes = entry.scopes
             var existing = (try? String(contentsOfFile: path, encoding: .utf8)) ?? ""
             let pattern = "<!-- src:" + NSRegularExpression.escapedPattern(for: sourceName) + " -->\\n(?:.*\\n)*?\\n"
             if let re = try? NSRegularExpression(pattern: pattern, options: [.anchorsMatchLines]) {

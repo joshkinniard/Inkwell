@@ -154,8 +154,28 @@ def extract_tag_records(paragraphs):
                     scope = clean(" ".join(paragraphs[:p_idx]))
                 else:                                     # 3: tag-only sentence
                     scope = clean(earlier)
+                # A tag at the START of a sentence has nothing before it, so its
+                # scope is empty. Filing a record with no text in it is noise.
+                if not has_words(scope):
+                    continue
                 records.append((name.lower(), scope))
     return records
+
+
+def tag_filename(name):
+    """A tag name reduced to a safe file basename (no extension).
+
+    Tag text is whatever the writer typed between hashes, so it can contain
+    '/' or '..' and must never be used as a path as-is. Returns "" when
+    nothing usable survives, which means "don't write a file for this".
+    """
+    safe = []
+    for ch in name.strip().lower():
+        safe.append(ch if (ch.isalnum() or ch in " -_") else "-")
+    out = "".join(safe).strip()
+    while "--" in out:
+        out = out.replace("--", "-")
+    return out.strip("-. ")
 
 
 def render_export(paragraphs, live=""):
@@ -243,6 +263,18 @@ def selftest():
     check("export space before tag removed",
           render_export(["I saw it #dog#.  "]),
           "\tI saw it.\n")
+
+    # a tag at the start of a sentence has no scope -> no empty record filed
+    check("no empty tag record",
+          extract_tag_records(["It rained.  #weather#  She waited.  "]),
+          [])
+
+    # tag names are never used as paths
+    check("tag filename slash",     tag_filename("a/b"),           "a-b")
+    check("tag filename traversal", tag_filename("../../escaped"), "escaped")
+    check("tag filename dotfile",   tag_filename(".hidden"),       "hidden")
+    check("tag filename keeps text", tag_filename("First Draft"),  "first draft")
+    check("tag filename unusable",  tag_filename("///"),           "")
 
     print("\nALL PASSED" if ok else "\nSOME TESTS FAILED")
     return 0 if ok else 1
@@ -585,11 +617,19 @@ def main(stdscr):
             return
         os.makedirs(TAGS_DIR, exist_ok=True)
         stamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-        by_name = {}
+        by_file = {}
         for name, scope in recs:
-            by_name.setdefault(name, []).append(scope)
-        for name, scopes in by_name.items():
-            path = os.path.join(TAGS_DIR, name + ".md")
+            fname = tag_filename(name)
+            if not fname:
+                continue
+            by_file.setdefault(fname, {"title": name, "scopes": []})["scopes"].append(scope)
+        for fname, rec in by_file.items():
+            path = os.path.join(TAGS_DIR, fname + ".md")
+            # Belt and braces: the sanitizer above already removes path parts,
+            # but tag files get the same fence the prose save has.
+            if not within_allowed(path):
+                continue
+            name, scopes = rec["title"], rec["scopes"]
             existing = ""
             if os.path.exists(path):
                 with open(path, encoding="utf-8") as f:

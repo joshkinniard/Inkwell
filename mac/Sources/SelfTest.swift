@@ -39,6 +39,16 @@ enum SelfTest {
         check("export drops tag-only paragraph", TextLogic.renderExport(["First para.  ", "#summary#.  "]), "\tFirst para.\n")
         check("export space before tag removed", TextLogic.renderExport(["I saw it #dog#.  "]), "\tI saw it.\n")
 
+        // a tag at the start of a sentence has no scope -> no empty record filed
+        checkRecs("no empty tag record", TextLogic.extractTagRecords(["It rained.  #weather#  She waited.  "]), [])
+
+        // tag names are never used as paths
+        check("tag filename slash", TextLogic.tagFilename("a/b"), "a-b")
+        check("tag filename traversal", TextLogic.tagFilename("../../escaped"), "escaped")
+        check("tag filename dotfile", TextLogic.tagFilename(".hidden"), "hidden")
+        check("tag filename keeps text", TextLogic.tagFilename("First Draft"), "first draft")
+        check("tag filename unusable", TextLogic.tagFilename("///"), "")
+
         print(ok ? "\nALL PASSED" : "\nSOME TESTS FAILED")
         return ok ? 0 : 1
     }
