@@ -4,6 +4,8 @@
 
 Ink mode is the reason Inkwell exists. Words go down like paint on canvas. It separates drafting from editing, so the act of writing isn't strangled by the urge to correct. You type inside a small live bracket where you can edit freely. When you finish a sentence, you *commit* it on purpose, and it freezes into the page. The cursor can't reach back.
 
+![Inkwell in Ink mode: a sentence being typed inside the live bracket](docs/images/01-ink-mode.png)
+
 ```
     The morning came in grey and stayed that way.  Nobody minded much.  [she was still asleep when]
     └─────────────────── ink: frozen, permanent ──────────────────────┘  └──── the live bracket ────┘
@@ -15,6 +17,8 @@ This is deliberately **not** the blunt "we disabled your backspace" approach, wh
 
 - **Ink** — forward-only, as described above.
 - **Free-write** — plain typing, no brackets, edit anywhere.
+
+![The New Inkwell document sheet, asking whether the document is Free-write or Ink](docs/images/02-mode-chooser.png)
 
 Both modes save to the same folder in the same format and share the same tag system, so a draft written under one is just a file to the other. The two exist because the discipline is the point of Ink mode, and a discipline you can switch off mid-sentence isn't one.
 
@@ -73,6 +77,10 @@ Check the text logic is behaving:
 python3 inkwell.py --selftest
 ```
 
+![Inkwell running in Terminal, with the key hints along the status bar](docs/images/03-terminal.png)
+
+The status bar carries a live word count, a session timer, an unsaved flag, and the keys themselves — so there is nothing to memorize:
+
 **Keys** (on a Mac laptop these are `fn` + the function key):
 
 | Key | Does |
@@ -125,7 +133,13 @@ The app is signed ad-hoc, not with a paid Apple Developer certificate, so the fi
 | File ▸ | Rename…, Export… |
 | Format ▸ | Text / Background / Tag Color, and Appearances |
 
+![The Format menu, showing font, text, background and tag colors, and saved Appearances](docs/images/04-format-menu.png)
+
 Two of those are easy to walk past. **`⌥⌘C` is the one you want when moving finished prose somewhere else** — plain `⌘C` copies exactly what's on screen, hashes and all. And **Format ▸ Appearances** saves a font-and-color combination by name so you can keep several and switch between them; **Save as Default Appearance** makes the current one apply to new documents.
+
+**Help ▸ Inkwell Help** (`⌘?`) explains the whole app without leaving it:
+
+![Inkwell's built-in help panel, describing both modes, tabs, tags and the shortcuts](docs/images/05-help.png)
 
 ---
 
