@@ -1,3 +1,5 @@
+<img src="docs/images/icon.png" width="120" alt="Inkwell icon: an ink drop between two brackets">
+
 # Inkwell
 
 **A writing app in two modes. In Ink mode, each sentence becomes permanent the moment you finish it. In Free-write mode, it doesn't.**
@@ -117,6 +119,8 @@ The finished `Inkwell.app` lands in `mac/build/` — drag it wherever you keep a
 INKWELL_INSTALL=1 ./build.sh          # into /Applications
 INKWELL_INSTALL=~/Applications ./build.sh
 ```
+
+The app icon ships in `mac/AppIcon.icns` and is picked up automatically; point `INKWELL_ICON` at your own `.icns` if you'd rather use a different one.
 
 The app is signed ad-hoc, not with a paid Apple Developer certificate, so the first launch will get you a Gatekeeper warning. Right-click the app and choose **Open** to get past it.
 
