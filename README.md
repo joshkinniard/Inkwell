@@ -18,6 +18,8 @@ This is deliberately **not** the blunt "we disabled your backspace" approach, wh
 
 Both modes save to the same folder in the same format and share the same tag system, so a draft written under one is just a file to the other. The two exist because the discipline is the point of Ink mode, and a discipline you can switch off mid-sentence isn't one.
 
+**The terminal version has Ink mode only.** That's deliberate, and the reason is explained under [Terminal](#terminal-python--start-here) below.
+
 ---
 
 ## The one gesture you need to learn
@@ -55,9 +57,13 @@ Re-saving the same document replaces its old entries rather than piling up dupli
 
 Ink mode only — the pure forward-only tool, and the reference implementation of how committing and tags behave. No installation, no dependencies: Python 3 and its standard library, nothing else.
 
+> **Why there's no Free-write mode here.** In a terminal you are already surrounded by editors. Inkwell saves plain Markdown into a folder you chose, so `nano ~/Documents/Inkwell/draft.md` — or vim, or anything else — *is* Free-write mode, and it came with your operating system. The Mac app needs the mode because a GUI app is a place you commit to: once you're in it with tabs open, there's no editor at hand and quitting to fix a typo would be hostile. Adding it here would duplicate the shell for no gain, and every behavior duplicated across the Python and Swift versions is one more place they can silently drift apart.
+>
+> The practical consequence to know about: **`F2` opens an existing file as frozen ink, so you can write on from the end but cannot change what's already there.** If you need to revise, open the file in any editor. Nothing about the format is special.
+
 ```bash
-git clone https://github.com/YOURNAME/inkwell.git
-cd inkwell
+git clone https://github.com/joshkinniard/Inkwell.git
+cd Inkwell
 python3 inkwell.py
 ```
 

@@ -37,7 +37,12 @@ Both write the same file format to the same folder and share the tag system, so 
 started in one mode is just a file to the other.
 
 Only the Mac app offers the choice; the terminal version is Ink-only, and everything in
-the Core Mechanic below describes Ink mode.
+the Core Mechanic below describes Ink mode. That asymmetry is deliberate: in a terminal
+the user is already surrounded by editors, and since Inkwell writes plain Markdown to a
+folder of their choosing, any of them already serves as Free-write. The Mac app has no
+such escape hatch, so the mode had to exist there. Do not "restore parity" by porting
+Free-write to the terminal — it would duplicate the shell and widen the drift between
+the two hand-maintained copies of the text logic.
 
 ---
 
